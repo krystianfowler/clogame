@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "gRPC-Web simple example",
   "main": "server.js",
+  "scripts": {
+    "build": "npx webpack ./client.js"
+  },
   "devDependencies": {
     "@grpc/grpc-js": "~1.0.5",
     "@grpc/proto-loader": "~0.5.4",
