@@ -1,19 +1,21 @@
-var PROTO_PATH = __dirname + '/../proto/helloworld.proto'
+var PROTO_PATH = __dirname + '/proto/helloworld.proto'
+import assert from 'assert'
+import * as grpc from '@grpc/grpc-js'
+import * as protoLoader from '@grpc/proto-loader'
 
-var assert = require('assert')
-var grpc = require('@grpc/grpc-js')
-var protoLoader = require('@grpc/proto-loader')
-var packageDefinition = protoLoader.loadSync(PROTO_PATH, {
+const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
   keepCase: true,
   longs: String,
   enums: String,
   defaults: true,
   oneofs: true,
 })
-var protoDescriptor = grpc.loadPackageDefinition(packageDefinition)
-var helloworld = protoDescriptor.helloworld
 
-function doSayHello(call, callback) {
+const protoDescriptor = grpc.loadPackageDefinition(packageDefinition)
+
+const helloworld = protoDescriptor.helloworld
+
+const doSayHello = (call: any, callback: any) => {
   callback(null, {
     message: 'Hello! ' + call.request.name,
   })
@@ -21,6 +23,7 @@ function doSayHello(call, callback) {
 
 function getServer() {
   var server = new grpc.Server()
+  // @ts-ignore
   server.addService(helloworld.Greeter.service, {
     sayHello: doSayHello,
   })
@@ -32,7 +35,7 @@ if (require.main === module) {
   server.bindAsync(
     '0.0.0.0:9090',
     grpc.ServerCredentials.createInsecure(),
-    (err, port) => {
+    (err: any, port: any) => {
       assert.ifError(err)
       server.start()
     }

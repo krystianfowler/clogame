@@ -1,16 +1,20 @@
 {
-  "name": "grpc-web-simple-example",
-  "version": "0.1.0",
-  "description": "gRPC-Web simple example",
-  "main": "server.js",
-  "devDependencies": {
+  "name": "clogame-backed",
+  "version": "0.0.0",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node src/server.ts"
+  },
+  "dependencies": {
     "@grpc/grpc-js": "~1.0.5",
     "@grpc/proto-loader": "~0.5.4",
-    "async": "~1.5.2",
-    "google-protobuf": "~3.14.0",
-    "grpc-web": "~1.4.2",
-    "lodash": "~4.17.0",
-    "webpack": "~5.82.1",
-    "webpack-cli": "~5.1.1"
+    "google-protobuf": "^3.21.2"
+  },
+  "devDependencies": {
+    "@types/google-protobuf": "^3.15.6",
+    "@types/node": "^20.5.6",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
   }
 }
