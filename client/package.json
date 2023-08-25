@@ -2,7 +2,7 @@
   "name": "grpc-web-simple-example",
   "version": "0.1.0",
   "description": "gRPC-Web simple example",
-  "main": "server.js",
+  "main": "dist/client.js",
   "scripts": {
     "build": "npx webpack ./client.js"
   },
