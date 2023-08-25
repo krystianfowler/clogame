@@ -1,5 +1,5 @@
 # Use an official Node runtime as the base image
-FROM node:18  
+FROM node:18
 
 # Set the working directory inside the container
 WORKDIR /usr/src/app
@@ -16,5 +16,8 @@ COPY . .
 # The port your gRPC server will listen on
 EXPOSE 9090
 
-# Command to run the server
-CMD [ "node", "server.js" ]
+# If you want to run the build and start the app
+RUN npm run build
+
+# Or simply start the app without building (if you build on your host machine)
+CMD ["npm", "start"]

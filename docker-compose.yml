@@ -12,12 +12,8 @@ services:
     build: ./server
     ports:
       - '9090:9090' # replace with the port your gRPC server is running on
-    volumes:
-      - ./proto:/usr/src/proto # This will mount the proto folder from your host machine to /usr/src/proto in the container
 
   client:
     build: ./client # path to the Dockerfile for your client
-    volumes:
-      - ./proto:/usr/src/proto # Making proto folder available to client
     ports:
       - '8081:8081' # replace with the port your client is running on
