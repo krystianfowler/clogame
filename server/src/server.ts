@@ -1,5 +1,4 @@
-var PROTO_PATH = __dirname + '/proto/helloworld.proto'
-import assert from 'assert'
+const PROTO_PATH = __dirname + '/proto/helloworld.proto'
 import * as grpc from '@grpc/grpc-js'
 import * as protoLoader from '@grpc/proto-loader'
 
@@ -22,7 +21,7 @@ const doSayHello = (call: any, callback: any) => {
 }
 
 function getServer() {
-  var server = new grpc.Server()
+  const server = new grpc.Server()
   // @ts-ignore
   server.addService(helloworld.Greeter.service, {
     sayHello: doSayHello,
@@ -30,16 +29,14 @@ function getServer() {
   return server
 }
 
-if (require.main === module) {
-  var server = getServer()
-  server.bindAsync(
-    '0.0.0.0:9090',
-    grpc.ServerCredentials.createInsecure(),
-    (err: any, port: any) => {
-      assert.ifError(err)
-      server.start()
-    }
-  )
-}
+const server = getServer()
+server.bindAsync(
+  '0.0.0.0:9090',
+  grpc.ServerCredentials.createInsecure(),
+  (err: any, port: any) => {
+    if (err) throw err
+    server.start()
+  }
+)
 
 exports.getServer = getServer
