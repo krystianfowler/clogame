@@ -9,7 +9,7 @@ services:
       - '8080:8080' # Your proxy port
 
   backend:
-    build: ./server
+    build: ./backend
     ports:
       - '9090:9090' # replace with the port your gRPC server is running on
 
