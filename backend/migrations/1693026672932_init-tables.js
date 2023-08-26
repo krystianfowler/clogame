@@ -1,119 +1,104 @@
 exports.up = (pgm) => {
   pgm.createTable('User', {
-    id: 'id',
-    username: { type: 'varchar(50)', unique: true, notNull: true },
-    password_hash: { type: 'varchar(256)', notNull: true },
-    email: 'varchar(50)',
-    created_at: { type: 'timestamp', default: pgm.func('current_timestamp') },
-    updated_at: { type: 'timestamp', default: pgm.func('current_timestamp') },
-  })
-
-  pgm.createTable('Galaxy', {
-    id: 'id',
-    name: { type: 'varchar(50)', unique: true, notNull: true },
+    id: {
+      type: 'SERIAL',
+      primaryKey: true,
+    },
+    username: {
+      type: 'VARCHAR(50)',
+      unique: true,
+      notNull: true,
+    },
+    password_hash: {
+      type: 'VARCHAR(256)',
+      notNull: true,
+    },
+    email: {
+      type: 'VARCHAR(50)',
+    },
+    created_at: {
+      type: 'TIMESTAMP',
+      default: pgm.func('current_timestamp'),
+    },
+    updated_at: {
+      type: 'TIMESTAMP',
+      default: pgm.func('current_timestamp'),
+    },
   })
 
   pgm.createTable('Planet', {
-    id: 'id',
-    name: 'varchar(50)',
-    galaxy_id: {
-      type: 'integer',
-      references: 'Galaxy',
+    id: {
+      type: 'SERIAL',
+      primaryKey: true,
+    },
+    name: 'VARCHAR(50)',
+    user_id: {
+      type: 'INT',
+      references: 'User',
       onDelete: 'CASCADE',
     },
-    user_id: {
-      type: 'integer',
-      references: 'User',
-      onDelete: 'SET NULL',
+    metal_mine_level: {
+      type: 'INT',
+      default: 1,
+    },
+    ships_count: {
+      type: 'INT',
+      default: 0,
+    },
+    defense_count: {
+      type: 'INT',
+      default: 0,
     },
   })
 
-  pgm.createTable('Building', {
-    id: 'id',
-    name: { type: 'varchar(50)', unique: true, notNull: true },
-  })
-
-  pgm.createTable('Planet_Building', {
+  pgm.createTable('Timer', {
+    id: {
+      type: 'SERIAL',
+      primaryKey: true,
+    },
     planet_id: {
-      type: 'integer',
+      type: 'INT',
       references: 'Planet',
       onDelete: 'CASCADE',
-      notNull: true,
     },
-    building_id: {
-      type: 'integer',
-      references: 'Building',
-      onDelete: 'CASCADE',
-      notNull: true,
+    start_time: {
+      type: 'TIMESTAMP',
+      default: pgm.func('current_timestamp'),
     },
-    level: { type: 'integer', notNull: true },
-  })
-  pgm.addConstraint('Planet_Building', 'unique_planet_building', {
-    unique: ['planet_id', 'building_id'],
+    end_time: 'TIMESTAMP',
+    timer_type: 'VARCHAR(50)', // Can be 'MetalMineUpgrade', 'ShipBuilding', 'DefenseBuilding'
   })
 
-  pgm.createTable('Alliance', {
-    id: 'id',
-    name: { type: 'varchar(50)', unique: true, notNull: true },
-  })
-
-  pgm.createTable('User_Alliance', {
-    user_id: {
-      type: 'integer',
-      references: 'User',
-      onDelete: 'CASCADE',
-      notNull: true,
+  pgm.createTable('Mission', {
+    id: {
+      type: 'SERIAL',
+      primaryKey: true,
     },
-    alliance_id: {
-      type: 'integer',
-      references: 'Alliance',
+    origin_planet_id: {
+      type: 'INT',
+      references: 'Planet',
       onDelete: 'CASCADE',
-      notNull: true,
     },
-  })
-  pgm.addConstraint('User_Alliance', 'unique_user_alliance', {
-    unique: ['user_id', 'alliance_id'],
-  })
-
-  pgm.createTable('Research', {
-    id: 'id',
-    name: { type: 'varchar(50)', unique: true, notNull: true },
-  })
-
-  pgm.createTable('User_Research', {
-    user_id: {
-      type: 'integer',
-      references: 'User',
+    destination_planet_id: {
+      type: 'INT',
+      references: 'Planet',
       onDelete: 'CASCADE',
-      notNull: true,
     },
-    research_id: {
-      type: 'integer',
-      references: 'Research',
-      onDelete: 'CASCADE',
-      notNull: true,
+    start_time: {
+      type: 'TIMESTAMP',
+      default: pgm.func('current_timestamp'),
     },
-    level: { type: 'integer', notNull: true },
-    galaxy_id: {
-      type: 'integer',
-      references: 'Galaxy',
-      onDelete: 'CASCADE',
-      notNull: true,
+    end_time: 'TIMESTAMP',
+    status: {
+      type: 'VARCHAR(50)',
+      default: 'pending',
     },
-  })
-  pgm.addConstraint('User_Research', 'unique_user_research', {
-    unique: ['user_id', 'research_id', 'galaxy_id'],
   })
 }
 
 exports.down = (pgm) => {
-  pgm.dropTable('User_Research')
-  pgm.dropTable('Research')
-  pgm.dropTable('User_Alliance')
-  pgm.dropTable('Alliance')
-  pgm.dropTable('Planet_Building')
-  pgm.dropTable('Building')
+  pgm.dropTable('Mission')
+  pgm.dropTable('Timer')
   pgm.dropTable('Planet')
-  pgm.dropTable('Galaxy')
   pgm.dropTable('User')
 }
