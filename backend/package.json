@@ -6,17 +6,20 @@
     "build": "tsc",
     "postbuild": "mkdir -p dist/proto && cp src/proto/*.proto dist/proto",
     "start": "node dist/server.js",
-    "dev": "ts-node src/server.ts"
+    "dev": "ts-node src/server.ts",
+    "migrate": "dotenv node-pg-migrate"
   },
   "dependencies": {
     "@grpc/grpc-js": "~1.0.5",
     "@grpc/proto-loader": "~0.5.4",
+    "dotenv": "^16.3.1",
     "google-protobuf": "^3.21.2",
     "pg": "^8.11.3"
   },
   "devDependencies": {
     "@types/google-protobuf": "^3.15.6",
     "@types/node": "^20.5.6",
+    "dotenv-cli": "^7.3.0",
     "node-pg-migrate": "^6.2.2",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
