@@ -1,0 +1,80 @@
+/* START RESET  */
+html,
+body,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul,
+li,
+dl,
+dt,
+dd,
+img,
+figure,
+fieldset,
+form,
+label,
+legend,
+textarea,
+summary {
+	margin: 0;
+	padding: 0;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	line-height: 1;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+caption,
+th,
+td {
+	text-align: left;
+	vertical-align: middle;
+}
+
+q,
+blockquote {
+	quotes: none;
+}
+
+q::before,
+q::after,
+blockquote::before,
+blockquote::after {
+	content: '';
+}
+
+a img {
+	border: none;
+}
+/* END RESET */
+
+:root {
+	--text-color: #ffffff;
+}
+body {
+	color: var(--text-color);
+	background-color: #080b16;
+	font-family: 'Titillium Web', sans-serif;
+}
