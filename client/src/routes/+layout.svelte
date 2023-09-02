@@ -1,5 +1,8 @@
 <script>
 	import '../app.css';
+	import MetalIcon from '$lib/MetalIcon.svelte';
+	import CrystalIcon from '$lib/CrystalIcon.svelte';
+	import EnergyIcon from '$lib/EnergyIcon.svelte';
 </script>
 
 <head>
@@ -11,5 +14,10 @@
 	/>
 </head>
 
+<div>
+	<MetalIcon --color="cadetblue" /><CrystalIcon --color="aquamarine" /><EnergyIcon
+		--color="yellow"
+	/>
+</div>
 
 <slot />
